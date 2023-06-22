@@ -1,0 +1,103 @@
+<!DOCTYPE html />
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>puzz.link Stats</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="">
+</head>
+
+<body>
+    <style>
+        html {
+            background-color: white;
+            font-size: 1.1em;
+        }
+
+        .box {
+            width: 95%;
+            max-width: 1000px;
+            margin: 30px auto;
+            color: black;
+            background-color: rgb(240, 240, 240);
+            padding: 20px;
+        }
+
+        a {
+            color: #0000EE;
+        }
+
+        table {
+            margin: auto;
+        }
+
+        textarea {
+            margin: 5px auto;
+            display: block;
+            resize: none;
+            max-width: 300px;
+            width: 90%;
+            height: 50px;
+        }
+
+        button {
+            display: block;
+            margin: 10px auto;
+        }
+    </style>
+    <div class="box">
+        <h1>Puzz.link Stats</h1>
+        <p>This website displays your puzz.link stats and also creates a <a
+                href="https://en.wikipedia.org/wiki/Bookmarklet" target="_blank">Bookmarklet</a> for ease of use.</p>
+        <h2>Bookmarklet?</h2>
+        <p>Saving the script as a Bookmarklet allows you to more easily see your genre stats without going to this
+            website every time.</p>
+        <p>
+            You can drag and drop the following link into your bookmarks bar.
+            To try it out, go to the puzz.link database, checkmark some genres (while in 'only' mode), then click the
+            bookmarklet.
+            If you don't have any genres selected, then it will load stats for all genres (this may take a few seconds).
+            <br><a
+                href="javascript:(async function()%7Btry%20%7B%0A%20%20%20%20let%20types%20%3D%20%7B%7D%3B%0A%20%20%20%20let%20choosing%20%3D%20%5B%5D%3B%0A%20%20%20%20let%20htmltypes%20%3D%20document.getElementsByClassName(%22typesel%22)%5B0%5D.children%3B%0A%20%20%20%20for%20(const%20label%20in%20htmltypes)%20%7B%0A%20%20%20%20%20%20%20%20let%20input%20%3D%20htmltypes%5Blabel%5D.children%3B%0A%20%20%20%20%20%20%20%20if%20(input%20!%3D%20undefined)%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20let%20typename%20%3D%20htmltypes%5Blabel%5D.textContent%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20(input%5B0%5D.checked)%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20choosing.push(htmltypes%5Blabel%5D.textContent)%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20types%5Btypename%5D%20%3D%20%7B%7D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20types%5Btypename%5D%5B'total'%5D%20%3D%200%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20types%5Btypename%5D%5B'solved'%5D%20%3D%200%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%20%20%20%20let%20str%20%3D%20%22%22%3B%0A%20%20%20%20if%20(choosing.length%20!%3D%3D%200)%20%7B%0A%20%20%20%20%20%20%20%20let%20genres%20%3D%20%22%22%3B%0A%20%20%20%20%20%20%20%20for%20(const%20pt%20in%20choosing)%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20genres%20%2B%3D%20'%22'%20%2B%20choosing%5Bpt%5D%20%2B%20'%22%252C'%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20genres%20%3D%20genres.slice(0%2C%20-3)%3B%0A%20%20%20%20%20%20%20%20str%20%3D%20'%26type%3Din.('%20%2B%20genres%20%2B%20')'%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20let%20puzs%20%3D%20(await%20(await%20(fetch('https%3A%2F%2Fpuzz.link%2Fdb%2Fapi%2Fpzvs_user%3F'%20%2B%20str%20%2B%20'limit%3D999999%26order%3Dsort_key.asc%26generated%3Deq.false%26tags_filter%3Dcs.%257B%257D%26tags_filter%3Dnot.cs.%257Bbroken%257D%26tags_filter%3Dnot.cs.%257Bvariant%257D'%2C%20%7B%0A%20%20%20%20%20%20%20%20%22headers%22%3A%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22accept%22%3A%20%22*%2F*%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22accept-language%22%3A%20%22en-US%2Cen%3Bq%3D0.9%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22authorization%22%3A%20%22Bearer%20%22%20%2B%20localStorage.getItem(%22token%22)%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22sec-fetch-dest%22%3A%20%22empty%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22sec-fetch-mode%22%3A%20%22cors%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22sec-fetch-site%22%3A%20%22cross-site%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%22referrerPolicy%22%3A%20%22strict-origin-when-cross-origin%22%2C%0A%20%20%20%20%20%20%20%20%22body%22%3A%20null%2C%0A%20%20%20%20%20%20%20%20%22method%22%3A%20%22GET%22%2C%0A%20%20%20%20%20%20%20%20%22mode%22%3A%20%22cors%22%2C%0A%20%20%20%20%20%20%20%20%22credentials%22%3A%20%22include%22%0A%20%20%20%20%7D))).json())%3B%0A%0A%20%20%20%20for%20(const%20pz%20in%20puzs)%20%7B%0A%20%20%20%20%20%20%20%20let%20p%20%3D%20puzs%5Bpz%5D%3B%0A%20%20%20%20%20%20%20%20if%20(types%5Bp.type%5D%20!%3D%20undefined)%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20(p.solved)%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20types%5Bp.type%5D%5B'solved'%5D%20%2B%3D%201%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20types%5Bp.type%5D%5B'total'%5D%20%2B%3D%201%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%0A%20%20%20%20let%20body%20%3D%20document.getElementsByTagName(%22body%22)%5B0%5D%3B%0A%20%20%20%20let%20div%20%3D%20document.getElementsByClassName(%22listing%22)%5B0%5D%3B%0A%20%20%20%20if%20(div%20%3D%3D%20undefined)%20%7B%0A%20%20%20%20%20%20%20%20div%20%3D%20document.createElement(%22div%22)%3B%0A%20%20%20%20%20%20%20%20div.classList.add(%22listing%22)%3B%0A%20%20%20%20%7D%0A%20%20%20%20innerhtml%20%3D%20%22%3Cdiv%3E%3Ca%20href%3D'https%3A%2F%2Fethannp.github.io%2Fpuzz-link-stats%2Findex.html%3Ftoken%3D%22%20%2B%20localStorage.getItem(%22token%22)%20%2B%20%22'%20target%3D'_blank'%3ESee%20full%20stats%3C%2Fa%3E%3Ctable%3E%3Ctr%3E%3Cth%3EGenre%3C%2Fth%3E%3Cth%3ESolves%3C%2Fth%3E%3Cth%3ETotal%3C%2Fth%3E%3Cth%3ERemaining%3C%2Fth%3E%3C%2Ftr%3E%22%3B%0A%20%20%20%20for%20(const%20type%20in%20types)%20%7B%0A%20%20%20%20%20%20%20%20if%20(types%5Btype%5D%5B'total'%5D%20!%3D%200)%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20innerhtml%20%2B%3D%20'%3Ctr%3E%3Ctd%20style%3D%22padding-right%3A%2015px%3B%22%3E'%20%2B%20type.toString()%20%2B%20'%3C%2Ftd%3E%3Ctd%20style%3D%22padding%3A%200%2015px%3B%22%3E'%20%2B%20types%5Btype%5D%5B'solved'%5D.toString()%20%2B%20'%3C%2Ftd%3E%3Ctd%20style%3D%22padding%3A%200%2015px%3B%22%3E'%20%2B%20types%5Btype%5D%5B'total'%5D.toString()%20%2B%20'%3C%2Ftd%3E%3Ctd%20style%3D%22padding%3A%200%2015px%3B%22%3E'%20%2B%20(types%5Btype%5D%5B'total'%5D%20-%20types%5Btype%5D%5B'solved'%5D).toString()%20%2B%20'%3C%2Ftd%3E%3C%2Ftr%3E'%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%20%20%20%20innerhtml%20%2B%3D%20%22%3C%2Ftable%3E%3C%2Fdiv%3E%22%0A%20%20%20%20div.innerHTML%20%3D%20innerhtml%3B%0A%20%20%20%20div.style%20%3D%20%22position%3A%20absolute%3B%20top%3A%2010px%3B%20left%3A%200.5em%3B%20%22%0A%20%20%20%20body.appendChild(div)%3B%0A%20%20%20%20body.style.marginTop%20%3D%20(10%20%2B%20div.offsetHeight)%20%2B%20%22px%22%3B%0A%7D%20catch%20(err)%20%7B%0A%20%20%20%20alert('Something%20went%20wrong.')%3B%0A%7D%7D)()%3B">puzz.link
+                Stats</a>
+        </p>
+        <b><i>Each time you click the bookmarklet, a single API call will be made with your token.</i></b>
+        <br><br>
+        <details>
+            <summary>Mobile Bookmarklet Instructions (Chrome)</summary>
+            <ol style="margin-top: 5px;">
+                <li>Hold on the "puzz.link Stats" link above and click "Copy Link"</li>
+                <li>Click "Add to Bookmarks" in the Chrome menu</li>
+                <li>Press "Edit" (or find "Edit Bookmark" in the menu)</li>
+                <li>Replace the URL value with the previously copied text</li>
+            </ol>
+            When you're on the puzz.link database, you can use the bookmarklet by simply clicking on it in the Bookmarks menu.
+        </details>
+        <hr>
+        <h2>I just want the script!</h2>
+        <p><a href="script.js" target="_blank">Here you go!</a></p>
+        <hr>
+        <h2>I want my stats now</h2>
+        <ol>
+            <li>Go to <a href="https://puzz.link/db/" target="_blank">puzz.link/db</a> (make sure you're logged in)</li>
+            <li>Inspect Element and go to the console or hit Ctrl+Shift+J</li>
+            <li>Paste the following: <code>localStorage.getItem("token")</code> and hit Enter</li>
+            <li>Copy and paste the result below (don't worry about stray quotes): </li>
+            <textarea id="token"></textarea>
+            <i style="text-align: center; display: block; font-size: 0.9em;">Note: You should NOT generally share
+                your token with
+                others! I do not save your token (you may view the <a
+                    href="https://github.com/ethannp/puzz-link-stats" target="_blank">source code here</a>).</i>
+        </ol>
+        To view your genre stats, click the button below. <b><i>This will make a single API call using your
+                token.</i></b><br>
+        <p style="text-align: center; display: none;" id="wrong"></p>
+        <button id="statsbtn" onclick="load()">View Stats</button>
+    </div>
+    <script defer src="puz.js"></script>
+</body>
+
+</html>
