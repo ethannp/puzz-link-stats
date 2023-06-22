@@ -12,6 +12,7 @@ let types = {},
 const urlParams = new URLSearchParams(window.location.search);
 if (urlParams.has('token')) {
     document.getElementById("token").value = urlParams.get("token");
+    document.getElementById("prefill").style.display = "block";
 }
 
 async function load() {
@@ -97,21 +98,27 @@ async function load() {
             div = document.createElement("div");
             div.classList.add("listing");
         }
+        let cleared = 0;
         innerhtml = `<div class="box"><p>Include: 
         <label><input type="checkbox" name="puzzletype" value="generated" onclick="update()" id="gen">Generated</label>
         <label><input type="checkbox" name="puzzletype" value="variant" onclick="update()" id="var">Variant</label>
         </p>
         
-        <p>Total: <span id="totalsolved">${totalsolved}</span> / <span id="totalpuzzles">${totalpuzzles}</span>
-        <table><tr><th>Genre</th><th>Solves</th><th>Total</th><th>Remaining</th><th>Percent Complete</th></tr>`;
+        <p style="margin-bottom: 5px">Total: <span id="totalsolved">${totalsolved}</span> / <span id="totalpuzzles">${totalpuzzles}</span></p>
+        <p style="margin-top: 0px">Clears 💯: <span id="cleared"></span> / <span>${Object.keys(types).length}</span></p>
+        <table><tr><th>Genre</th><th>Solves</th><th>Total</th><th>Remaining</th><th>Completed %</th></tr>`;
         for (const type in sorted) {
             if (sorted[type]['total'] != 0) {
                 innerhtml += `<tr><td style="padding-right: 15px;">${type}</td><td style="padding: 0 15px;" id="${type}solved">${types[type]['solved']}</td><td style="padding: 0 15px;"id="${type}total">${types[type]['total']}</td><td style="padding: 0 15px;"id="${type}remaining">${types[type]['total'] - types[type]['solved']}</td><td style="padding: 0 15px;" id="${type}percent">${types[type]['solved'] == types[type]['total'] ? "💯<span style='color: gray; font-size: 0.6em'>&nbsp;%</span>" : Math.round(10000 * types[type]['solved'] / types[type]['total']) / 100+"<span style='color: gray; font-size: 0.6em'>&nbsp;%</span>"}</td></tr>`;
+                if (types[type]['solved'] == types[type]['total']) {
+                    cleared++;
+                }
             }
         }
         innerhtml += "</table></div>"
         div.innerHTML = innerhtml;
         body.appendChild(div);
+        document.getElementById("cleared").textContent = cleared;
         window.scrollBy({
             top: 200,
             left: 0,
@@ -142,6 +149,7 @@ function update() {
         document.getElementById("totalsolved").textContent = totalsolved;
         document.getElementById("totalpuzzles").textContent = totalpuzzles;
     }
+    let cleared = 0;
     for (const type in sorted) {
         let solved, total, remaining;
         if (sorted[type]['total'] != 0) {
@@ -163,6 +171,10 @@ function update() {
             document.getElementById(type + "total").textContent = total;
             document.getElementById(type + "remaining").textContent = remaining;
             document.getElementById(type + "percent").innerHTML = solved == total ? "💯<span style='color: gray; font-size: 0.6em'>&nbsp;%</span>" : Math.round(10000 * solved / total) / 100+"<span style='color: gray; font-size: 0.6em'>&nbsp;%</span>"
+            if (solved == total) {
+                cleared++;
+            }
         }
     }
+    document.getElementById("cleared").textContent = cleared;
 }

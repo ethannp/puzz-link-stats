@@ -80,18 +80,19 @@
         <h2>I just want the script!</h2>
         <p><a href="script.js" target="_blank">Here you go!</a></p>
         <hr>
-        <h2>I want my stats now</h2>
-        <ol>
+        <h2>I want to see my stats.</h2>
+        <p style="color: green; display: none; text-align: center;" id="prefill"><b>Your token was prefilled by the bookmarklet!</b></p>
+        <ol style="margin-bottom: 0px;">
             <li>Go to <a href="https://puzz.link/db/" target="_blank">puzz.link/db</a> (make sure you're logged in)</li>
             <li>Inspect Element and go to the console or hit Ctrl+Shift+J</li>
             <li>Paste the following: <code>localStorage.getItem("token")</code> and hit Enter</li>
             <li>Copy and paste the result below (don't worry about stray quotes): </li>
-            <textarea id="token"></textarea>
-            <i style="text-align: center; display: block; font-size: 0.9em;">Note: You should NOT generally share
-                your token with
-                others! I do not save your token (you may view the <a
-                    href="https://github.com/ethannp/puzz-link-stats" target="_blank">source code here</a>).</i>
         </ol>
+        <textarea id="token"></textarea>
+        <i style="text-align: center; display: block; font-size: 0.9em; margin-bottom: 20px;">Note: You should NOT generally share
+            your token with
+            others! I do not save your token (you may view the <a
+                href="https://github.com/ethannp/puzz-link-stats" target="_blank">source code here</a>).</i>
         To view your genre stats, click the button below. <b><i>This will make a single API call using your
                 token.</i></b><br>
         <p style="text-align: center; display: none;" id="wrong"></p>
