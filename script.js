@@ -69,6 +69,11 @@ try {
     body.style.marginTop = (10 + div.offsetHeight) + "px";
     let checkbox = document.getElementById("hidecomplete");
     checkbox.addEventListener("change", function() {
+        if (checkbox.checked) {
+            localStorage.setItem("hide-checked", "true");
+        } else {
+            localStorage.setItem("hide-checked", "false");
+        }
         let rows = div.firstChild.lastChild.firstChild.children;
         for (let i = 1; i < rows.length; i++) {
             if (rows[i].children[3].textContent == 0) {
@@ -80,7 +85,22 @@ try {
             }
         }
         body.style.marginTop = (10 + div.offsetHeight) + "px";
-    })
+    });
+    let hide = localStorage.getItem("hide-checked");
+    if (hide != undefined && hide == "true") {
+        checkbox.checked = true;
+        let rows = div.firstChild.lastChild.firstChild.children;
+        for (let i = 1; i < rows.length; i++) {
+            if (rows[i].children[3].textContent == 0) {
+                if (checkbox.checked) {
+                    rows[i].style.display = "none";
+                } else {
+                    rows[i].style.display = "table-row";
+                }
+            }
+        }
+        body.style.marginTop = (10 + div.offsetHeight) + "px";
+    }
 } catch (err) {
     alert('Something went wrong.');
 }
