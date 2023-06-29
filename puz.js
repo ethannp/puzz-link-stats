@@ -178,3 +178,9 @@ function update() {
     }
     document.getElementById("cleared").textContent = cleared;
 }
+async function updated(){
+    let json = await(await(fetch("https://api.github.com/repos/ethannp/puzz-link-stats/branches/main"))).json();
+    document.getElementById("lastupdated").textContent = new Date(json.commit.commit.author.date).toLocaleDateString("en-US", {month: 'long', day: 'numeric', year: 'numeric'});
+}
+
+updated();
