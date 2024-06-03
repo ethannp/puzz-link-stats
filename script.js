@@ -58,9 +58,7 @@ try {
     }
     innerhtml = "<div><label><input type='checkbox' value='hidecomplete' id='hidecomplete'>Hide completed genres</label>&nbsp;|&nbsp;<a href='https://ethannp.github.io/puzz-link-stats/index.html?token=" + localStorage.getItem("token") + "' target='_blank'>See full stats</a><table><tr><th>Genre</th><th>Solves</th><th>Total</th><th>Remaining</th></tr>";
     for (const type in types) {
-        if (types[type]['total'] != 0) {
-            innerhtml += '<tr><td style="padding-right: 15px;">' + type.toString() + '</td><td style="padding: 0 15px;">' + types[type]['solved'].toString() + '</td><td style="padding: 0 15px;">' + types[type]['total'].toString() + '</td><td style="padding: 0 15px;">' + (types[type]['total'] - types[type]['solved']).toString() + '</td></tr>';
-        }
+        innerhtml += '<tr><td style="padding-right: 15px;">' + type.toString() + '</td><td style="padding: 0 15px;">' + types[type]['solved'].toString() + '</td><td style="padding: 0 15px;">' + types[type]['total'].toString() + '</td><td style="padding: 0 15px;">' + (types[type]['total'] - types[type]['solved']).toString() + '</td></tr>';
     }
     innerhtml += "</table></div>"
     div.innerHTML = innerhtml;
@@ -68,7 +66,7 @@ try {
     body.appendChild(div);
     body.style.marginTop = (10 + div.offsetHeight) + "px";
     let checkbox = document.getElementById("hidecomplete");
-    checkbox.addEventListener("change", function() {
+    checkbox.addEventListener("change", function () {
         if (checkbox.checked) {
             localStorage.setItem("hide-checked", "true");
         } else {
